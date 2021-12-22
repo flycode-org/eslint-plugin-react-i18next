@@ -1,0 +1,66 @@
+{
+  "name": "@flycode-org/eslint-plugin-react-i18next",
+  "description": "ESLint rules for react-i18next",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/parser": "^5.8.0",
+    "class-validator": "^0.13.2",
+    "eslint": "^8.5.0",
+    "eslint-plugin-eslint-plugin": "^4.1.0",
+    "jest": "^27.3.1",
+    "prettier": "^2.5.1",
+    "reflect-metadata": "^0.1.13",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "@types/flat": "^5.0.2",
+    "@types/lodash.has": "^4.5.6",
+    "@typescript-eslint/experimental-utils": "^5.4.0",
+    "fast-glob": "^3.2.7",
+    "fastest-levenshtein": "^1.0.12",
+    "flat": "^5.0.2",
+    "lodash.has": "^4.5.2"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testPathIgnorePatterns": [
+      "node_modules",
+      ".*\\.js$"
+    ]
+  },
+  "peerDependencies": {
+    "class-validator": ">0.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/flycode-org/eslint-plugin-react-i18next.git"
+  },
+  "author": "Iddan Aaronsohn <mail@aniddan.com>",
+  "private": false,
+  "bugs": {
+    "url": "https://github.com/flycode-org/eslint-plugin-react-i18next/issues"
+  },
+  "homepage": "https://github.com/flycode-org/eslint-plugin-react-i18next#readme",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "keywords": [
+    "eslint",
+    "react",
+    "i18next"
+  ]
+}
