@@ -13,7 +13,7 @@ This rule validates the value of the `i18nKey` attribute evaluates to a key that
 ```json
 {
   "rules": {
-    "@flycode-org/react-18next/valid-key": "error"
+    "@flycode-org/react-i18next/valid-key": "error"
   },
   "settings": {
     "@flycode-org/react-i18next": {
