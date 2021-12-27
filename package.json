@@ -16,7 +16,6 @@
     "@types/node": "^16.11.9",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
-    "class-validator": "^0.13.2",
     "eslint": "^8.5.0",
     "eslint-plugin-eslint-plugin": "^4.1.0",
     "jest": "^27.3.1",
@@ -41,9 +40,7 @@
       ".*\\.js$"
     ]
   },
-  "peerDependencies": {
-    "class-validator": ">0.12.0"
-  },
+  "peerDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/flycode-org/eslint-plugin-react-i18next.git"
