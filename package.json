@@ -9,7 +9,8 @@
     "test": "jest",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "prepare": "npm run build"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
