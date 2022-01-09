@@ -54,6 +54,62 @@ export default createRule<Options, keyof typeof MESSAGES>({
     );
     const keysArray = Array.from(keys);
 
+    const validateStaticValue = (
+      node: TSESTree.Node,
+      staticValue: {
+        value: unknown;
+      } | null
+    ) => {
+      if (!staticValue) {
+        context.report({
+          messageId: "dynamic-key",
+          node,
+        });
+        return;
+      }
+
+      if (typeof staticValue.value !== "string") {
+        context.report({
+          messageId: "wrong-key-type",
+          node,
+        });
+        return;
+      }
+
+      const key = staticValue.value;
+
+      if (!keys.has(key)) {
+        context.report({
+          messageId: "non-existing-key",
+          node,
+          data: {
+            key,
+            closestKey: closest(key, keysArray),
+          },
+        });
+        return;
+      }
+
+      for (const [filePath, translation] of Object.entries(translations)) {
+        if (
+          !hasKeyInTranslation(
+            settings.translationFiles.format,
+            translation,
+            key
+          )
+        ) {
+          context.report({
+            messageId: "missing-key-in-file",
+            node,
+            data: {
+              key,
+              filePath,
+            },
+          });
+        }
+      }
+    };
+
     return {
       JSXElement: (element) => {
         if (isTransElement(element)) {
@@ -79,54 +135,23 @@ export default createRule<Options, keyof typeof MESSAGES>({
             context.getScope()
           );
 
-          if (!staticValue) {
-            context.report({
-              messageId: "dynamic-key",
-              node: attribute,
-            });
+          validateStaticValue(attribute, staticValue);
+        }
+      },
+      CallExpression: (expression) => {
+        if (
+          ASTUtils.isIdentifier(expression.callee) &&
+          expression.callee.name === "t"
+        ) {
+          if (!expression.arguments.length) {
             return;
           }
-
-          if (typeof staticValue.value !== "string") {
-            context.report({
-              messageId: "wrong-key-type",
-              node: attribute,
-            });
-            return;
-          }
-
-          const key = staticValue.value;
-
-          if (!keys.has(key)) {
-            context.report({
-              messageId: "non-existing-key",
-              node: attribute,
-              data: {
-                key,
-                closestKey: closest(key, keysArray),
-              },
-            });
-            return;
-          }
-
-          for (const [filePath, translation] of Object.entries(translations)) {
-            if (
-              !hasKeyInTranslation(
-                settings.translationFiles.format,
-                translation,
-                key
-              )
-            ) {
-              context.report({
-                messageId: "missing-key-in-file",
-                node: attribute,
-                data: {
-                  key,
-                  filePath,
-                },
-              });
-            }
-          }
+          const [firstArgument] = expression.arguments;
+          const staticValue = ASTUtils.getStaticValue(
+            firstArgument,
+            context.getScope()
+          );
+          validateStaticValue(firstArgument, staticValue);
         }
       },
     };
